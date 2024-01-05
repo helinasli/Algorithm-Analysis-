@@ -1,89 +1,47 @@
-# Sorting Algorithms Implementation Project
+# QuickSort Implementation and Hybrid Algorithm - README
 
-## Overview
+## QuickSort with Different Pivoting Strategies
 
-In this project, various sorting algorithms were implemented without relying on any external libraries. While external libraries were used for tasks such as reading and writing CSV files, as well as employing vectors and performing mathematical operations, the algorithms themselves were implemented without external dependencies.
+### Implementation Overview
+This repository contains an implementation of the QuickSort algorithm with three different strategies for choosing the pivot element: last element, random element, and median of three. The code includes details on the implementation, recurrence relations, and time/space complexity for each pivoting strategy.
 
-## Max-Heapify Procedure
+### Experimental Results
+The code was tested with various input data populations, and the execution times (in nanoseconds) were recorded. The results are summarized in Table 1.
 
-The `max_heapify` procedure maintains the max heap property by comparing a node with its children and swapping if necessary. It is recursive, with a time complexity of \(O(\log n)\), where \(n\) is the number of elements in the heap.
+#### Table 1: Comparison of Pivoting Strategies
+| Pivoting Strategy  | Population1 | Population2 | Population3 | Population4 |
+|-------------------|--------------|--------------|--------------|--------------|
+| Last Element      | 528143292    | 10916078881  | 4208906752   | 20818333     |
+| Random Element    | 37753584     | 32562375     | 36561208     | 39826459     |
+| Median of Three   | 35503750     | 36049916     | 36851500     | 35385833     |
 
-## Build-Max-Heap Procedure
+The experimental results align with theoretical expectations, showcasing the impact of different pivoting strategies on the performance of QuickSort.
 
-The `build_max_heap` procedure builds a max heap from an unordered array. It starts from the last non-leaf node and calls `max_heapify` on each node. The time complexity of `build_max_heap` is \(O(n)\), where \(n\) is the number of elements in the array.
+## Hybrid Implementation of QuickSort and Insertion Sort
 
-## Heapsort Procedure
+### Implementation Overview
+In addition to the basic QuickSort implementation, this repository includes a hybrid algorithm that switches between QuickSort and Insertion Sort based on a threshold value (k). The code utilizes the same pivoting strategies as the basic QuickSort.
 
-The `heapsort` procedure uses the max heap property to repeatedly extract the maximum element and maintain the heap property. Its time complexity is \(O(n \log n)\).
+### Experimental Results
+The hybrid algorithm was tested with varying threshold values, and the execution times (in nanoseconds) were recorded. Results are presented in Tables 2, 3, and 4 for last element, random element, and median of three pivoting strategies, respectively.
 
-## Priority Queue Operations
+#### Table 2: Hybrid Algorithm with Last Element Pivoting
+| Threshold (k) | 2          | 10         | 20         | $10^2$     | $10^3$     | $10^4$      | $10^5$      |
+|---------------|------------|------------|------------|------------|------------|-------------|-------------|
+| Population4    | 24541583   | 23295125   | 25555833   | 19683875   | 60794625   | 526963375   | 1034100458  |
 
-- **Max-Heap-Insert:** Inserts a new element into the max heap with a time complexity of \(O(\log n)\).
-  
-- **Heap-Extract-Max:** Extracts the maximum element from the max heap with a time complexity of \(O(\log n)\).
+#### Table 3: Hybrid Algorithm with Random Element Pivoting
+| Threshold (k) | 2          | 10         | 20         | $10^2$     | $10^3$     | $10^4$      | $10^5$      |
+|---------------|------------|------------|------------|------------|------------|-------------|-------------|
+| Population4    | 32915584   | 30033000   | 21834875   | 26031917   | 71181958   | 543093667   | 1042884875  |
 
-- **Heap-Increase-Key:** Increases the key of a specified element with a time complexity of \(O(\log n)\).
+#### Table 4: Hybrid Algorithm with Median of Three Pivoting
+| Threshold (k) | 2          | 10         | 20         | $10^2$     | $10^3$     | $10^4$      | $10^5$      |
+|---------------|------------|------------|------------|------------|------------|-------------|-------------|
+| Population4    | 36845375   | 27282583   | 22247875   | 18728417   | 69028583   | 523113708   | 1046404292  |
 
-- **Heap-Maximum:** Returns the maximum element in the max heap with a time complexity of \(O(1)\).
+## Conclusion
 
-## Implementation of d-ary Heap Operations
+The experiments demonstrate the impact of different pivoting strategies and threshold values on the performance of the QuickSort algorithm. Users can refer to these results to make informed decisions based on their specific use cases and datasets.
 
-- **Height Calculation:** The height of a d-ary heap is calculated using the formula \(h = \lceil\log_d(n \cdot d - n + 1)\rceil - 1\), with a time complexity of \(O(1)\).
-
-- **Extract-Max Implementation:** The `dary_extract_max` function extracts the maximum element from a d-ary heap with a time complexity of \(O(d \log_d n)\).
-
-- **Insert Implementation:** The `dary_insert_element` function inserts a new element into the d-ary heap with a time complexity of \(O(\log_d n)\).
-
-- **Increase-Key Implementation:** The `dary_increase_key` function increases the key of a specific element in the d-ary heap with a time complexity of \(O(\log_d n)\).
-
-## Comparative Analysis
-
-### (a) Runtime Efficiency
-
-| Algorithm                        | Population1   | Population2   | Population3   | Population4   |
-| -------------------------------- | ------------- | ------------- | ------------- | ------------- |
-| **Heapsort**                     | 23,524,667 ns | 20,846,542 ns | 19,324,458 ns | 18,365,292 ns |
-| **Quicksort (Last Element)**     | 528,143,292   | 10,916,078,881| 4,208,906,752 | 20,818,333    |
-| **Quicksort (Random Element)**   | 37,753,584    | 32,562,375    | 36,561,208    | 39,826,459    |
-| **Quicksort (Median of 3)**      | 35,503,750    | 36,049,916    | 36,851,500    | 35,385,833    |
-
-### (b) Number of Comparisons
-
-| Algorithm                        | Population1   | Population2   | Population3   | Population4   |
-| -------------------------------- | ------------- | ------------- | ------------- | ------------- |
-| **Heapsort**                     | 345,114       | 388,152       | 348,976       | 369,362       |
-| **Quicksort (Last Element)**     | 9,004,989     | 95,309,721    | 72,827,050    | 234,018       |
-| **Quicksort (Random Element)**   | 231,109       | 224,202       | 228,087       | 213,200       |
-| **Quicksort (Median of 3)**      | 200,799       | 199,318       | 195,983       | 195,741       |
-
-### (c) Insights into Strengths and Weaknesses
-
-**Heapsort:**
-
-- *Strengths:*
-  - Worst-case time complexity is \(O(n \log n)\).
-  - In-place sorting with space complexity \(O(1)\).
-
-- *Weaknesses:*
-  - Not stable.
-  - Slower in practice compared to some other algorithms.
-
-**Quicksort:**
-
-- *Strengths:*
-  - Better average-case time complexity (\(O(n \log n)\)).
-  - In-place sorting.
-
-- *Weaknesses:*
-  - Worst-case time complexity is \(O(n^2)\).
-  - Not stable.
-
-**Scenarios:**
-
-- **Heapsort:** Suitable for scenarios where worst-case performance is critical or there are memory constraints.
-
-- **Quicksort:** Effective in scenarios where average-case performance is crucial, and the input data is usually random.
-
----
-
-*Note: Adjust the formatting and styling as needed for your specific markdown environment.*
+Feel free to explore the code and experiment with different configurations to further understand the behavior of the implemented algorithms.
